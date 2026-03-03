@@ -19,7 +19,6 @@ import org.eclipse.keyple.core.util.Assert;
 import org.eclipse.keyple.core.util.json.JsonUtil;
 import org.eclipse.keypop.calypso.crypto.legacysam.CounterIncrementAccess;
 import org.eclipse.keypop.calypso.crypto.legacysam.transaction.*;
-import org.eclipse.keypop.reader.ChannelControl;
 
 /**
  * Adapter of {@link AsyncTransactionCreatorManager}.
@@ -147,28 +146,10 @@ final class AsyncTransactionCreatorManagerAdapter extends CommonTransactionManag
    *
    * @throws UnsupportedOperationException Always.
    * @since 0.3.0
-   * @deprecated Use {@link #processCommands(org.eclipse.keypop.reader.ChannelControl)} instead.
    */
-  @Deprecated
   @Override
   public AsyncTransactionCreatorManager processCommands() {
     throw new UnsupportedOperationException(
         "processCommands() is not allowed during the creation of an asynchronous transaction");
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * <p>This method is part of the implemented interface, but it cannot be executed by this type of
-   * transaction manager, which is not designed to handle target SAM commands. As a result, when
-   * called, this method always throws an exception.
-   *
-   * @throws UnsupportedOperationException Always.
-   * @since 1.0.0
-   */
-  @Override
-  public AsyncTransactionCreatorManager processCommands(ChannelControl channelControl) {
-    throw new UnsupportedOperationException(
-        "processCommands(ChannelControl) is not allowed during the creation of an asynchronous transaction");
   }
 }

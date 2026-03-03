@@ -34,7 +34,6 @@ import org.eclipse.keypop.card.*;
 import org.eclipse.keypop.card.spi.ApduRequestSpi;
 import org.eclipse.keypop.card.spi.CardRequestSpi;
 import org.eclipse.keypop.reader.CardReader;
-import org.eclipse.keypop.reader.ChannelControl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
@@ -183,7 +182,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
   @Test(expected = UnsupportedOperationException.class)
   public void processCommands_shouldThrowUOE() {
     samTransactionManager.prepareWriteCounterCeiling(0, 100);
-    samTransactionManager.processCommands(ChannelControl.KEEP_OPEN);
+    samTransactionManager.processCommands();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -240,8 +239,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
         createCardResponse(R_9000, R_9000, R_SAM_DATA_CIPHER_CEILING_0);
 
     when(samReader.transmitCardRequest(
-            argThat(new CardRequestMatcher(cardRequestCipherData0)),
-            any(org.eclipse.keypop.card.ChannelControl.class)))
+            argThat(new CardRequestMatcher(cardRequestCipherData0)), any(ChannelControl.class)))
         .thenReturn(cardResponseCipherData0);
 
     CardRequestSpi cardRequestCipherData3 =
@@ -251,8 +249,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
         createCardResponse(R_9000, R_9000, R_SAM_DATA_CIPHER_CEILING_3);
 
     when(samReader.transmitCardRequest(
-            argThat(new CardRequestMatcher(cardRequestCipherData3)),
-            any(org.eclipse.keypop.card.ChannelControl.class)))
+            argThat(new CardRequestMatcher(cardRequestCipherData3)), any(ChannelControl.class)))
         .thenReturn(cardResponseCipherData3);
 
     samTransactionManager.prepareWriteCounterCeiling(0, 100);
@@ -299,8 +296,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
         createCardResponse(R_9000, R_9000, R_SAM_DATA_CIPHER_RECORD_1);
 
     when(samReader.transmitCardRequest(
-            argThat(new CardRequestMatcher(cardRequestCipherDataRec1)),
-            any(org.eclipse.keypop.card.ChannelControl.class)))
+            argThat(new CardRequestMatcher(cardRequestCipherDataRec1)), any(ChannelControl.class)))
         .thenReturn(cardResponseCipherDataRec1);
 
     CardRequestSpi cardRequestCipherDataRec2 =
@@ -312,8 +308,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
         createCardResponse(R_9000, R_9000, R_SAM_DATA_CIPHER_RECORD_2);
 
     when(samReader.transmitCardRequest(
-            argThat(new CardRequestMatcher(cardRequestCipherDataRec2)),
-            any(org.eclipse.keypop.card.ChannelControl.class)))
+            argThat(new CardRequestMatcher(cardRequestCipherDataRec2)), any(ChannelControl.class)))
         .thenReturn(cardResponseCipherDataRec2);
 
     CardRequestSpi cardRequestCipherDataRec3 =
@@ -325,8 +320,7 @@ public final class AsyncTransactionCreatorManagerAdapterTest {
         createCardResponse(R_9000, R_9000, R_SAM_DATA_CIPHER_RECORD_3);
 
     when(samReader.transmitCardRequest(
-            argThat(new CardRequestMatcher(cardRequestCipherDataRec3)),
-            any(org.eclipse.keypop.card.ChannelControl.class)))
+            argThat(new CardRequestMatcher(cardRequestCipherDataRec3)), any(ChannelControl.class)))
         .thenReturn(cardResponseCipherDataRec3);
 
     for (int i = 0; i < 27; i++) {

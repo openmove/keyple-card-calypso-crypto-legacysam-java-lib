@@ -16,7 +16,6 @@ import static org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.keypop.card.*;
-import org.eclipse.keypop.reader.ChannelControl;
 
 /**
  * Abstract class of all transaction manager adapters.
@@ -87,12 +86,12 @@ abstract class CommonTransactionManagerAdapter {
    * Executes all previously added commands for the target SAM. If a command needs to be finalized,
    * especially with the help of a control SAM, then it will be.
    *
-   * @param channelControl The channel control.
-   * @since 1.0.0
+   * @param closePhysicalChannel True if the physical channel must be closed after the operation.
+   * @since 0.3.0
    */
-  final void processTargetSamCommands(ChannelControl channelControl) {
+  final void processTargetSamCommands(boolean closePhysicalChannel) {
     try {
-      CommandExecutor.processCommands(targetSamCommands, targetSamReader, channelControl);
+      CommandExecutor.processCommands(targetSamCommands, targetSamReader, closePhysicalChannel);
     } finally {
       targetSamCommands.clear();
     }
@@ -102,13 +101,13 @@ abstract class CommonTransactionManagerAdapter {
    * Executes all previously added commands for the target SAM when they are already finalized (in
    * an asynchronous operation for example).
    *
-   * @param channelControl The channel control.
-   * @since 1.0.0
+   * @param closePhysicalChannel True if the physical channel must be closed after the operation.
+   * @since 0.3.0
    */
-  final void processTargetSamCommandsAlreadyFinalized(ChannelControl channelControl) {
+  final void processTargetSamCommandsAlreadyFinalized(boolean closePhysicalChannel) {
     try {
       CommandExecutor.processCommandsAlreadyFinalized(
-          targetSamCommands, targetSamReader, channelControl);
+          targetSamCommands, targetSamReader, closePhysicalChannel);
     } finally {
       targetSamCommands.clear();
     }
@@ -125,6 +124,6 @@ abstract class CommonTransactionManagerAdapter {
    * @since 0.3.0
    */
   final void processTargetSamCommands(List<? extends Command> commands) {
-    CommandExecutor.processCommands(commands, targetSamReader, ChannelControl.KEEP_OPEN);
+    CommandExecutor.processCommands(commands, targetSamReader, false);
   }
 }

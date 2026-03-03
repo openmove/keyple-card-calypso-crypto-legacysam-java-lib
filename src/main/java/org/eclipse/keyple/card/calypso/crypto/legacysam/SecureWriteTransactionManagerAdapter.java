@@ -14,15 +14,8 @@ package org.eclipse.keyple.card.calypso.crypto.legacysam;
 import org.eclipse.keyple.core.util.Assert;
 import org.eclipse.keypop.calypso.crypto.legacysam.CounterIncrementAccess;
 import org.eclipse.keypop.calypso.crypto.legacysam.SystemKeyType;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.ReaderIOException;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.SamIOException;
 import org.eclipse.keypop.calypso.crypto.legacysam.transaction.SecureWriteTransactionManager;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.UnexpectedCommandStatusException;
 import org.eclipse.keypop.card.ProxyReaderApi;
-import org.eclipse.keypop.reader.CardCommunicationException;
-import org.eclipse.keypop.reader.ChannelControl;
-import org.eclipse.keypop.reader.InvalidCardResponseException;
-import org.eclipse.keypop.reader.ReaderCommunicationException;
 
 /**
  * Adapter of {@link SecureWriteTransactionManager}.
@@ -311,30 +304,10 @@ final class SecureWriteTransactionManagerAdapter extends CommonTransactionManage
    * {@inheritDoc}
    *
    * @since 0.9.0
-   * @deprecated Use {@link #processCommands(org.eclipse.keypop.reader.ChannelControl)} instead.
    */
-  @Deprecated
   @Override
   public SecureWriteTransactionManager processCommands() {
-    try {
-      return processCommands(ChannelControl.KEEP_OPEN);
-    } catch (ReaderCommunicationException e) {
-      throw new ReaderIOException(e.getMessage(), e);
-    } catch (CardCommunicationException e) {
-      throw new SamIOException(e.getMessage(), e);
-    } catch (InvalidCardResponseException e) {
-      throw new UnexpectedCommandStatusException(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @since 1.0.0
-   */
-  @Override
-  public SecureWriteTransactionManager processCommands(ChannelControl channelControl) {
-    processTargetSamCommands(channelControl);
+    processTargetSamCommands(false);
     return this;
   }
 }

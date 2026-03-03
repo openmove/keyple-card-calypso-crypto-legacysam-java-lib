@@ -18,14 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.keyple.core.util.json.JsonUtil;
 import org.eclipse.keypop.calypso.crypto.legacysam.transaction.AsyncTransactionExecutorManager;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.ReaderIOException;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.SamIOException;
-import org.eclipse.keypop.calypso.crypto.legacysam.transaction.UnexpectedCommandStatusException;
 import org.eclipse.keypop.card.ProxyReaderApi;
-import org.eclipse.keypop.reader.CardCommunicationException;
-import org.eclipse.keypop.reader.ChannelControl;
-import org.eclipse.keypop.reader.InvalidCardResponseException;
-import org.eclipse.keypop.reader.ReaderCommunicationException;
 
 /**
  * Adapter of {@link AsyncTransactionExecutorManager}.
@@ -74,30 +67,10 @@ final class AsyncTransactionExecutorManagerAdapter extends CommonTransactionMana
    * {@inheritDoc}
    *
    * @since 0.3.0
-   * @deprecated Use {@link #processCommands(org.eclipse.keypop.reader.ChannelControl)} instead.
    */
-  @Deprecated
   @Override
   public AsyncTransactionExecutorManager processCommands() {
-    try {
-      return processCommands(ChannelControl.KEEP_OPEN);
-    } catch (ReaderCommunicationException e) {
-      throw new ReaderIOException(e.getMessage(), e);
-    } catch (CardCommunicationException e) {
-      throw new SamIOException(e.getMessage(), e);
-    } catch (InvalidCardResponseException e) {
-      throw new UnexpectedCommandStatusException(e.getMessage(), e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @since 1.0.0
-   */
-  @Override
-  public AsyncTransactionExecutorManager processCommands(ChannelControl channelControl) {
-    processTargetSamCommandsAlreadyFinalized(channelControl);
+    processTargetSamCommandsAlreadyFinalized(false);
     return this;
   }
 }

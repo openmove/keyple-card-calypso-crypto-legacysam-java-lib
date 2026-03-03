@@ -27,7 +27,6 @@ import org.eclipse.keypop.calypso.crypto.symmetric.spi.*;
 import org.eclipse.keypop.card.*;
 import org.eclipse.keypop.card.spi.ApduRequestSpi;
 import org.eclipse.keypop.card.spi.CardRequestSpi;
-import org.eclipse.keypop.reader.InvalidCardResponseException;
 
 /**
  * Adapter of {@link SymmetricCryptoCardTransactionManagerSpi} and {@link
@@ -439,7 +438,7 @@ final class SymmetricCryptoCardTransactionManagerAdapter
                   + " ["
                   + sw
                   + "]",
-              new InvalidCardResponseException(
+              new UnexpectedCommandStatusException(
                   CardTransactionUtil.MSG_SAM_COMMAND_ERROR
                       + "while processing responses to SAM commands: "
                       + commandRef
@@ -793,9 +792,7 @@ final class SymmetricCryptoCardTransactionManagerAdapter
         return;
       }
       // CL-SAM-DUPDATE.1
-      // CL-SAM-DMULTI.2
-      if (sam.getProductType() == LegacySam.ProductType.SAM_C1
-          || sam.getProductType() == LegacySam.ProductType.SAM_S1E1) {
+      if (sam.getProductType() == LegacySam.ProductType.SAM_C1) {
         // Digest Update Multiple
         byte[] buffer = new byte[255];
         int i = 0;

@@ -19,20 +19,11 @@ package org.eclipse.keyple.card.calypso.crypto.legacysam;
 public interface ContextSetting {
 
   /**
-   * Defines the maximum size of APDUs payload (**Lc** field value) that the library can generate
-   * when communicating with a contact card.
-   *
-   * <p>As an example, here are the values to be set for communication with the SAM when used in HSP
-   * mode:
-   *
-   * <ul>
-   *   <li>SAM-C1 in HSP mode, set {@code payloadCapacity} to 248.
-   *   <li>SAM-E1 in HSP mode, set {@code payloadCapacity} to 239.
-   * </ul>
+   * Defines the maximum size of APDUs that the library can generate when communicating with a
+   * contact card.
    *
    * @param payloadCapacity A positive integer lower than 255.
-   * @return The current instance.
-   * @throws IllegalArgumentException If payloadCapacity is out of range.
+   * @return The object instance.
    * @since 0.4.0
    */
   ContextSetting setContactReaderPayloadCapacity(int payloadCapacity);

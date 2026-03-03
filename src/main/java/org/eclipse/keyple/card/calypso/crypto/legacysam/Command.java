@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.eclipse.keypop.card.*;
-import org.eclipse.keypop.reader.ChannelControl;
 
 /**
  * Superclass for all SAM commands.
@@ -291,8 +290,7 @@ abstract class Command {
    */
   void processControlSamCommand() {
     try {
-      CommandExecutor.processCommands(
-          controlSamCommands, context.getControlSamReader(), ChannelControl.KEEP_OPEN);
+      CommandExecutor.processCommands(controlSamCommands, context.getControlSamReader(), false);
     } finally {
       controlSamCommands.clear();
     }

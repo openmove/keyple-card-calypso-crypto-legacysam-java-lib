@@ -6,32 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2025-11-21
-### Changed
-- Added `processCommands` methods using `org.eclipse.keypop.reader.ChannelControl` from Reader API in transaction
-  managers to replace deprecated methods using Calypso Card API.
-### Deprecated
-- `FreeTransactionManager.processCommands()` method.
-  Use `processCommands(org.eclipse.keypop.reader.ChannelControl)` instead.
-- `SecureWriteTransactionManager.processCommands()` method.
-  Use `processCommands(org.eclipse.keypop.reader.ChannelControl)` instead.
-- `AsyncTransactionExecutorManager.processCommands()` method.
-  Use `processCommands(org.eclipse.keypop.reader.ChannelControl)` instead.
-- `AsyncTransactionCreatorManager.processCommands()` method.
-  Use `processCommands(org.eclipse.keypop.reader.ChannelControl)` instead.
-### Upgraded
-- Keypop Reader API `2.0.1` -> `2.1.0`
-- Keypop Calypso Card API `2.1.2` -> `2.2.0`
-- Keypop Calypso Crypto Legacy SAM API `0.7.0` -> `1.0.0`
-
-## [0.9.1] - 2025-11-13
-### Changed
-- The **Digest Update Multiple** command is now also used for **SAM S1E1**.
-- Migrated the CI pipeline from Jenkins to GitHub Actions.
-### Upgraded
-- Keypop Calypso Card API `2.1.0` -> `2.1.2`
-- Keyple Common API `2.0.1` -> `2.0.2` (documentation improvements)
-
 ## [0.9.0] - 2024-11-29
 ### Upgraded
 - Keypop Calypso Crypto Legacy SAM API `0.6.0` -> `0.7.0`
@@ -116,9 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2022-12-12
 This is the initial release.
 
-[unreleased]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/1.0.0...HEAD
-[1.0.0]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.9.1...1.0.0
-[0.9.1]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.9.0...0.9.1
+[unreleased]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.9.0...HEAD
 [0.9.0]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.7.1...0.8.0
 [0.7.1]: https://github.com/eclipse-keyple/keyple-card-calypso-crypto-legacysam-java-lib/compare/0.7.0...0.7.1

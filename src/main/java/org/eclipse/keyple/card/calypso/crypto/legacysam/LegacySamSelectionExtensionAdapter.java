@@ -26,13 +26,13 @@ import org.eclipse.keypop.calypso.crypto.legacysam.sam.LegacySamSelectionExtensi
 import org.eclipse.keypop.calypso.crypto.legacysam.spi.LegacySamDynamicUnlockDataProviderSpi;
 import org.eclipse.keypop.calypso.crypto.legacysam.spi.LegacySamStaticUnlockDataProviderSpi;
 import org.eclipse.keypop.calypso.crypto.legacysam.transaction.InconsistentDataException;
+import org.eclipse.keypop.calypso.crypto.legacysam.transaction.UnexpectedCommandStatusException;
 import org.eclipse.keypop.card.*;
 import org.eclipse.keypop.card.spi.ApduRequestSpi;
 import org.eclipse.keypop.card.spi.CardSelectionExtensionSpi;
 import org.eclipse.keypop.card.spi.CardSelectionRequestSpi;
 import org.eclipse.keypop.card.spi.SmartCardSpi;
 import org.eclipse.keypop.reader.CardReader;
-import org.eclipse.keypop.reader.InvalidCardResponseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -237,7 +237,7 @@ final class LegacySamSelectionExtensionAdapter
         if (e instanceof AccessForbiddenException && commands.get(i) instanceof CommandUnlock) {
           logger.warn("SAM not locked or already unlocked");
         } else {
-          throw new InvalidCardResponseException(
+          throw new UnexpectedCommandStatusException(
               MSG_SAM_COMMAND_ERROR
                   + "while processing responses to SAM commands: "
                   + commands.get(i).getCommandRef(),
