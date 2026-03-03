@@ -384,35 +384,6 @@ public final class FreeTransactionManagerAdapterTest {
     assertThatNoException().isThrownBy(() -> samTransactionManager.prepareComputeSignature(data));
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void prepareComputeSignature_PSO_whenTraceabilityOffsetIsNegative_shouldThrowIAE() {
-    TraceableSignatureComputationData data =
-        new TraceableSignatureComputationDataAdapter()
-            .setData(new byte[10], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(-1, SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER);
-    samTransactionManager.prepareComputeSignature(data);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void
-      prepareComputeSignature_PSO_whenPartialSamSerialNumberAndTraceabilityOffsetIsToHigh_shouldThrowIAE() {
-    TraceableSignatureComputationData data =
-        new TraceableSignatureComputationDataAdapter()
-            .setData(new byte[10], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(3 * 8 + 1, SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER);
-    samTransactionManager.prepareComputeSignature(data);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void
-      prepareComputeSignature_PSO_whenFullSamSerialNumberAndTraceabilityOffsetIsToHigh_shouldThrowIAE() {
-    TraceableSignatureComputationData data =
-        new TraceableSignatureComputationDataAdapter()
-            .setData(new byte[10], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(2 * 8 + 1, SamTraceabilityMode.FULL_SERIAL_NUMBER);
-    samTransactionManager.prepareComputeSignature(data);
-  }
-
   @Test
   public void
       prepareComputeSignature_PSO_whenTraceabilityOffsetIsInCorrectRange_shouldBeSuccessful() {
@@ -1097,35 +1068,6 @@ public final class FreeTransactionManagerAdapterTest {
 
     data.setData(new byte[10], new byte[8], (byte) 1, (byte) 2);
     assertThatNoException().isThrownBy(() -> samTransactionManager.prepareVerifySignature(data));
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void prepareVerifySignature_PSO_whenTraceabilityOffsetIsNegative_shouldThrowIAE() {
-    TraceableSignatureVerificationData data =
-        new TraceableSignatureVerificationDataAdapter()
-            .setData(new byte[10], new byte[8], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(-1, SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER, null);
-    samTransactionManager.prepareVerifySignature(data);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void
-      prepareVerifySignature_PSO_whenPartialSamSerialNumberAndTraceabilityOffsetIsToHigh_shouldThrowIAE() {
-    TraceableSignatureVerificationData data =
-        new TraceableSignatureVerificationDataAdapter()
-            .setData(new byte[10], new byte[8], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(3 * 8 + 1, SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER, null);
-    samTransactionManager.prepareVerifySignature(data);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void
-      prepareVerifySignature_PSO_whenFullSamSerialNumberAndTraceabilityOffsetIsToHigh_shouldThrowIAE() {
-    TraceableSignatureVerificationData data =
-        new TraceableSignatureVerificationDataAdapter()
-            .setData(new byte[10], new byte[8], (byte) 1, (byte) 2)
-            .withSamTraceabilityMode(2 * 8 + 1, SamTraceabilityMode.FULL_SERIAL_NUMBER, null);
-    samTransactionManager.prepareVerifySignature(data);
   }
 
   @Test

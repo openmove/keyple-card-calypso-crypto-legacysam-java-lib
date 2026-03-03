@@ -549,22 +549,6 @@ final class SymmetricCryptoCardTransactionManagerAdapter
               "length of data to sign")
           .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
           .isTrue(
-              !dataAdapter.isSamTraceabilityMode()
-                  || (dataAdapter.getTraceabilityOffset() >= 0
-                      && dataAdapter.getTraceabilityOffset()
-                          <= ((dataAdapter.getData().length * 8)
-                              - (dataAdapter.getSamTraceabilityMode()
-                                      == SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER
-                                  ? 7 * 8
-                                  : 8 * 8))),
-              "traceability offset is in range [0.."
-                  + ((dataAdapter.getData().length * 8)
-                      - (dataAdapter.getSamTraceabilityMode()
-                              == SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER
-                          ? 7 * 8
-                          : 8 * 8))
-                  + "]")
-          .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
                       && dataAdapter.getKeyDiversifier().length <= 8),
@@ -626,22 +610,6 @@ final class SymmetricCryptoCardTransactionManagerAdapter
               "length of signed data to verify")
           .notNull(dataAdapter.getSignature(), "signature")
           .isInRange(dataAdapter.getSignature().length, 1, 8, MSG_SIGNATURE_SIZE)
-          .isTrue(
-              !dataAdapter.isSamTraceabilityMode()
-                  || (dataAdapter.getTraceabilityOffset() >= 0
-                      && dataAdapter.getTraceabilityOffset()
-                          <= ((dataAdapter.getData().length * 8)
-                              - (dataAdapter.getSamTraceabilityMode()
-                                      == SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER
-                                  ? 7 * 8
-                                  : 8 * 8))),
-              "traceability offset is in range [0.."
-                  + ((dataAdapter.getData().length * 8)
-                      - (dataAdapter.getSamTraceabilityMode()
-                              == SamTraceabilityMode.TRUNCATED_SERIAL_NUMBER
-                          ? 7 * 8
-                          : 8 * 8))
-                  + "]")
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
